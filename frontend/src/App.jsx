@@ -1,12 +1,15 @@
 import { useState, useEffect, useCallback } from 'react'
-import { fetchToday, submitGuess, fetchReveal } from './api'
-import { getGameState, saveGameState, updateStats, getStats } from './storage'
+import { fetchToday, submitGuess, fetchReveal, fetchMe, submitGameResult, apiLogout } from './api'
+import { getGameState, saveGameState, updateStats, getStats, getToken, removeToken } from './storage'
 import GameBoard from './components/GameBoard'
 import GuessInput from './components/GuessInput'
 import Header from './components/Header'
 import ResultModal from './components/ResultModal'
 import StatsModal from './components/StatsModal'
 import HelpModal from './components/HelpModal'
+import AuthModal from './components/AuthModal'
+import UserModal from './components/UserModal'
+import LeaderboardModal from './components/LeaderboardModal'
 
 const SLOTS = ['base', 'protein', 'star', 'fat', 'heat']
 const MAX_GUESSES = 6
@@ -28,9 +31,23 @@ export default function App() {
   const [showResult, setShowResult] = useState(false)
   const [showStats, setShowStats] = useState(false)
   const [showHelp, setShowHelp] = useState(false)
+  const [showAuth, setShowAuth] = useState(false)
+  const [showUser, setShowUser] = useState(false)
+  const [showLeaderboard, setShowLeaderboard] = useState(false)
   const [animatingRow, setAnimatingRow] = useState(-1)
+  const [user, setUser] = useState(null)
 
   const todayStr = getTodayStr()
+
+  useEffect(() => {
+    const token = getToken()
+    if (token) {
+      fetchMe().then(res => {
+        if (res.data?.user) setUser(res.data.user)
+        else removeToken()
+      }).catch(() => removeToken())
+    }
+  }, [])
 
   useEffect(() => {
     async function init() {
@@ -109,6 +126,9 @@ export default function App() {
 
         if (isGameOver) {
           updateStats(isSolved, newGuesses.length)
+          if (getToken()) {
+            submitGameResult(todayStr, isSolved, newGuesses.length).catch(() => {})
+          }
           setTimeout(() => setShowResult(true), 400)
         }
       }, 1500)
@@ -126,6 +146,28 @@ export default function App() {
     }
   }, [gameOver, revealData, guesses, todayStr])
 
+  function handleAuth(userData) {
+    setUser(userData)
+    if (gameOver) {
+      submitGameResult(todayStr, solved, guesses.length).catch(() => {})
+    }
+  }
+
+  function handleLogout() {
+    apiLogout().catch(() => {})
+    removeToken()
+    setUser(null)
+    setShowUser(false)
+  }
+
+  function handleAuthClick() {
+    if (user) {
+      setShowUser(true)
+    } else {
+      setShowAuth(true)
+    }
+  }
+
   if (loading) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
@@ -140,6 +182,9 @@ export default function App() {
         puzzleNumber={puzzle?.puzzle_number}
         onHelp={() => setShowHelp(true)}
         onStats={() => setShowStats(true)}
+        onLeaderboard={() => setShowLeaderboard(true)}
+        onAuth={handleAuthClick}
+        user={user}
       />
 
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '0 16px' }}>
@@ -172,6 +217,9 @@ export default function App() {
           onStats={() => { setShowResult(false); setShowStats(true) }}
         />
       )}
+      {showAuth && <AuthModal onClose={() => setShowAuth(false)} onAuth={handleAuth} />}
+      {showUser && <UserModal user={user} onClose={() => setShowUser(false)} onLogout={handleLogout} />}
+      {showLeaderboard && <LeaderboardModal onClose={() => setShowLeaderboard(false)} currentUser={user} />}
     </>
   )
 }

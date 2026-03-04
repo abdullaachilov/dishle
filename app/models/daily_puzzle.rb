@@ -1,5 +1,6 @@
 class DailyPuzzle < ApplicationRecord
   belongs_to :dish
+  has_many :game_results, dependent: :destroy
 
   validates :puzzle_date, presence: true, uniqueness: true
   validates :puzzle_number, presence: true, uniqueness: true

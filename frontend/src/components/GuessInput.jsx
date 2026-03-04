@@ -126,7 +126,7 @@ export default function GuessInput({ onSubmit, disabled, error }) {
           ref={dropdownRef}
           style={{
             position: 'absolute',
-            top: '100%',
+            bottom: '100%',
             left: 0,
             right: 64,
             background: '#fff',

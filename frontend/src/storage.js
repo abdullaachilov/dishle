@@ -1,5 +1,6 @@
 const GAME_KEY = 'dishle_game'
 const STATS_KEY = 'dishle_stats'
+const TOKEN_KEY = 'dishle_token'
 
 export function getGameState() {
   try {
@@ -50,4 +51,16 @@ export function updateStats(won, guessCount) {
   }
   saveStats(stats)
   return stats
+}
+
+export function getToken() {
+  return localStorage.getItem(TOKEN_KEY)
+}
+
+export function saveToken(token) {
+  localStorage.setItem(TOKEN_KEY, token)
+}
+
+export function removeToken() {
+  localStorage.removeItem(TOKEN_KEY)
 }

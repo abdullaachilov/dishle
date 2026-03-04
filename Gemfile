@@ -6,6 +6,7 @@ gem "puma", ">= 5.0"
 gem "redis", "~> 5.0"
 gem "rack-cors"
 gem "rack-attack"
+gem "bcrypt", "~> 3.1.7"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem "thruster", require: false
