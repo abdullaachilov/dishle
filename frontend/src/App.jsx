@@ -193,7 +193,7 @@ export default function App() {
       />
 
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '0 16px' }}>
-        <GameBoard guesses={guesses} animatingRow={animatingRow} />
+        <GameBoard guesses={guesses} animatingRow={animatingRow} hint={puzzle?.hint} />
 
         {!gameOver && (
           <GuessInput

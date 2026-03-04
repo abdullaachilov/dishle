@@ -91,4 +91,7 @@ export default {
   'feedback.success': 'Thanks for your feedback!',
   'feedback.error': 'Could not send feedback. Try again.',
   'feedback.cooldown': 'Please wait before sending again',
+
+  // Hint
+  'hint.revealed': '{slot} is {value}',
 }

@@ -8,11 +8,18 @@ module Api
           return
         end
 
+        dish = puzzle.dish
+        slots = Dish::INGREDIENT_SLOTS
+        hint_index = puzzle.puzzle_number % slots.length
+        hint_slot = slots[hint_index]
+        hint_value = dish.send(hint_slot)
+
         render json: {
           data: {
             puzzle_number: puzzle.puzzle_number,
             date: puzzle.puzzle_date.iso8601,
-            total_dishes: Dish.count
+            total_dishes: Dish.count,
+            hint: { slot: hint_slot, value: hint_value }
           },
           error: nil,
           meta: {}

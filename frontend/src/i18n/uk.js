@@ -78,4 +78,6 @@ export default {
   'feedback.success': 'Дякуємо за ваш відгук!',
   'feedback.error': 'Не вдалося надіслати відгук. Спробуйте ще раз.',
   'feedback.cooldown': 'Зачекайте перед повторним надсиланням',
+
+  'hint.revealed': '{slot} — {value}',
 }

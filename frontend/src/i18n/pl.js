@@ -78,4 +78,6 @@ export default {
   'feedback.success': 'Dziękujemy za opinię!',
   'feedback.error': 'Nie udało się wysłać opinii. Spróbuj ponownie.',
   'feedback.cooldown': 'Poczekaj przed ponownym wysłaniem',
+
+  'hint.revealed': '{slot} to {value}',
 }
