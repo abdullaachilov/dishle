@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { register, login } from '../api'
 import { saveToken } from '../storage'
+import { useTranslation } from '../i18n'
 
 export default function AuthModal({ onClose, onAuth }) {
+  const { t } = useTranslation()
   const [mode, setMode] = useState('login')
   const [nickname, setNickname] = useState('')
   const [password, setPassword] = useState('')
@@ -27,7 +29,7 @@ export default function AuthModal({ onClose, onAuth }) {
         onClose()
       }
     } catch {
-      setError('Something went wrong. Try again.')
+      setError(t('auth.error'))
     } finally {
       setLoading(false)
     }
@@ -39,29 +41,29 @@ export default function AuthModal({ onClose, onAuth }) {
         <button onClick={onClose} style={closeStyle}>&times;</button>
 
         <h2 style={{ textAlign: 'center', fontSize: '1.1rem', fontWeight: 700, marginBottom: 20 }}>
-          {mode === 'login' ? 'Sign In' : 'Sign Up'}
+          {mode === 'login' ? t('auth.signIn') : t('auth.signUp')}
         </h2>
 
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: 12 }}>
-            <label style={labelStyle}>Nickname</label>
+            <label style={labelStyle}>{t('auth.nickname')}</label>
             <input
               type="text"
               value={nickname}
               onChange={e => setNickname(e.target.value.replace(/[^a-zA-Z0-9_]/g, '').slice(0, 20))}
-              placeholder="your_nickname"
+              placeholder={t('auth.nicknamePlaceholder')}
               autoComplete="username"
               style={inputStyle}
             />
           </div>
 
           <div style={{ marginBottom: 16 }}>
-            <label style={labelStyle}>Password</label>
+            <label style={labelStyle}>{t('auth.password')}</label>
             <input
               type="password"
               value={password}
               onChange={e => setPassword(e.target.value.slice(0, 72))}
-              placeholder="min 8 characters"
+              placeholder={t('auth.passwordPlaceholder')}
               autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
               style={inputStyle}
             />
@@ -81,17 +83,17 @@ export default function AuthModal({ onClose, onAuth }) {
               opacity: loading || nickname.length < 3 || password.length < 8 ? 0.5 : 1,
             }}
           >
-            {loading ? '...' : mode === 'login' ? 'Sign In' : 'Sign Up'}
+            {loading ? '...' : mode === 'login' ? t('auth.signIn') : t('auth.signUp')}
           </button>
         </form>
 
         <p style={{ textAlign: 'center', fontSize: '0.8rem', marginTop: 16, color: 'var(--gray)' }}>
-          {mode === 'login' ? "Don't have an account? " : 'Already have an account? '}
+          {mode === 'login' ? t('auth.noAccount') + ' ' : t('auth.hasAccount') + ' '}
           <button
             onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError('') }}
             style={switchStyle}
           >
-            {mode === 'login' ? 'Sign Up' : 'Sign In'}
+            {mode === 'login' ? t('auth.signUp') : t('auth.signIn')}
           </button>
         </p>
       </div>

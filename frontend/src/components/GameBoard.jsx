@@ -1,10 +1,11 @@
 import Tile from './Tile'
+import { useTranslation } from '../i18n'
 
 const SLOTS = ['base', 'protein', 'star', 'fat', 'heat']
-const LABELS = { base: 'BASE', protein: 'PROTEIN', star: 'STAR', fat: 'FAT', heat: 'HEAT' }
 const MAX_GUESSES = 6
 
 export default function GameBoard({ guesses, animatingRow }) {
+  const { t } = useTranslation()
   const rows = []
   for (let i = 0; i < MAX_GUESSES; i++) {
     rows.push(guesses[i] || null)
@@ -30,7 +31,7 @@ export default function GameBoard({ guesses, animatingRow }) {
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
           }}>
-            {LABELS[slot]}
+            {t(`slot.${slot}`)}
           </div>
         ))}
       </div>

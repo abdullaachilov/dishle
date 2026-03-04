@@ -4,9 +4,9 @@ module Api
       def index
         users = User
           .where("games_played > 0")
-          .order(games_won: :desc, max_streak: :desc)
+          .order(total_points: :desc, games_won: :desc, max_streak: :desc)
           .limit(50)
-          .select(:nickname, :games_played, :games_won, :current_streak, :max_streak)
+          .select(:nickname, :games_played, :games_won, :current_streak, :max_streak, :total_points)
 
         render json: {
           data: {
@@ -18,7 +18,8 @@ module Api
                 games_won: u.games_won,
                 win_pct: u.games_played > 0 ? (u.games_won * 100.0 / u.games_played).round : 0,
                 current_streak: u.current_streak,
-                max_streak: u.max_streak
+                max_streak: u.max_streak,
+                total_points: u.total_points
               }
             end
           },

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { fetchLeaderboard } from '../api'
+import { useTranslation } from '../i18n'
 
 export default function LeaderboardModal({ onClose, currentUser }) {
+  const { t } = useTranslation()
   const [entries, setEntries] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -20,14 +22,14 @@ export default function LeaderboardModal({ onClose, currentUser }) {
         <button onClick={onClose} style={closeStyle}>&times;</button>
 
         <h2 style={{ textAlign: 'center', fontSize: '1.1rem', fontWeight: 700, marginBottom: 20 }}>
-          Leaderboard
+          {t('leaderboard.title')}
         </h2>
 
         {loading ? (
-          <p style={{ textAlign: 'center', color: 'var(--gray)', padding: 20 }}>Loading...</p>
+          <p style={{ textAlign: 'center', color: 'var(--gray)', padding: 20 }}>{t('leaderboard.loading')}</p>
         ) : entries.length === 0 ? (
           <p style={{ textAlign: 'center', color: 'var(--gray)', padding: 20, fontSize: '0.9rem' }}>
-            No results yet. Be the first!
+            {t('leaderboard.empty')}
           </p>
         ) : (
           <div style={{ overflowX: 'auto' }}>
@@ -35,7 +37,8 @@ export default function LeaderboardModal({ onClose, currentUser }) {
               <thead>
                 <tr>
                   <th style={thStyle}>#</th>
-                  <th style={{ ...thStyle, textAlign: 'left' }}>Player</th>
+                  <th style={{ ...thStyle, textAlign: 'left' }}>{t('leaderboard.player')}</th>
+                  <th style={thStyle}>{t('leaderboard.pts')}</th>
                   <th style={thStyle}>W</th>
                   <th style={thStyle}>P</th>
                   <th style={thStyle}>%</th>
@@ -53,6 +56,7 @@ export default function LeaderboardModal({ onClose, currentUser }) {
                       <td style={{ ...tdStyle, textAlign: 'left', fontWeight: isMe ? 700 : 400 }}>
                         {e.nickname}
                       </td>
+                      <td style={{ ...tdStyle, fontWeight: 700, color: 'var(--green)' }}>{e.total_points}</td>
                       <td style={tdStyle}>{e.games_won}</td>
                       <td style={tdStyle}>{e.games_played}</td>
                       <td style={tdStyle}>{e.win_pct}%</td>
@@ -65,9 +69,12 @@ export default function LeaderboardModal({ onClose, currentUser }) {
           </div>
         )}
 
-        <div style={{ marginTop: 12, textAlign: 'center' }}>
-          <p style={{ fontSize: '0.7rem', color: 'var(--gray)' }}>
-            W = Wins &middot; P = Played &middot; Max = Best Streak
+        <div style={{ marginTop: 12 }}>
+          <p style={{ fontSize: '0.7rem', color: 'var(--gray)', textAlign: 'center' }}>
+            {t('leaderboard.legend')}
+          </p>
+          <p style={{ fontSize: '0.65rem', color: 'var(--gray)', textAlign: 'center', marginTop: 4 }}>
+            {t('leaderboard.pointsInfo')}
           </p>
         </div>
       </div>

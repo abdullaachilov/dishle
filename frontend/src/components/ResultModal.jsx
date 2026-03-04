@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Countdown from './Countdown'
+import { useTranslation } from '../i18n'
 
 const EMOJI_MAP = { correct: '🟩', present: '🟨', absent: '⬛' }
 
@@ -12,6 +13,7 @@ function buildShareText(puzzleNumber, guesses, solved) {
 }
 
 export default function ResultModal({ solved, guesses, puzzleNumber, revealData, onClose, onStats }) {
+  const { t } = useTranslation()
   const [copied, setCopied] = useState(false)
 
   const shareText = buildShareText(puzzleNumber, guesses, solved)
@@ -23,6 +25,8 @@ export default function ResultModal({ solved, guesses, puzzleNumber, revealData,
     }).catch(() => {})
   }
 
+  const resultStr = solved ? guesses.length : 'X'
+
   return (
     <div style={overlayStyle} onClick={onClose}>
       <div style={modalStyle} onClick={e => e.stopPropagation()}>
@@ -33,7 +37,7 @@ export default function ResultModal({ solved, guesses, puzzleNumber, revealData,
             {solved ? '🎉' : '😔'}
           </p>
           <h2 style={{ fontSize: '1.2rem', fontWeight: 700 }}>
-            {solved ? 'You got it!' : 'Not today...'}
+            {solved ? t('result.won') : t('result.lost')}
           </h2>
         </div>
 
@@ -55,7 +59,7 @@ export default function ResultModal({ solved, guesses, puzzleNumber, revealData,
 
         <div style={{ textAlign: 'center', marginBottom: 16 }}>
           <p style={{ fontSize: '0.9rem', fontWeight: 600 }}>
-            Your result: {solved ? guesses.length : 'X'}/6
+            {t('result.yourResult', { result: resultStr })}
           </p>
         </div>
 
@@ -72,10 +76,10 @@ export default function ResultModal({ solved, guesses, puzzleNumber, revealData,
 
         <div style={{ display: 'flex', gap: 8, justifyContent: 'center', flexWrap: 'wrap' }}>
           <button onClick={handleShare} style={btnStyle}>
-            {copied ? '✓ Copied!' : '📋 Share Result'}
+            {copied ? `✓ ${t('result.copied')}` : `📋 ${t('result.share')}`}
           </button>
           <button onClick={onStats} style={{ ...btnStyle, background: '#555' }}>
-            📊 Stats
+            📊 {t('result.stats')}
           </button>
         </div>
 

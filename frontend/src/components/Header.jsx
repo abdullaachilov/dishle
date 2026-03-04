@@ -1,4 +1,9 @@
+import { useTranslation } from '../i18n'
+import LanguageSelector from './LanguageSelector'
+
 export default function Header({ puzzleNumber, onHelp, onStats, onLeaderboard, onAuth, user }) {
+  const { t } = useTranslation()
+
   return (
     <header style={{
       display: 'flex',
@@ -18,8 +23,9 @@ export default function Header({ puzzleNumber, onHelp, onStats, onLeaderboard, o
             #{puzzleNumber}
           </span>
         )}
-        <button onClick={onHelp} style={iconBtnStyle} title="How to play" aria-label="Help">?</button>
-        <button onClick={onLeaderboard} style={iconBtnStyle} title="Leaderboard" aria-label="Leaderboard">
+        <LanguageSelector />
+        <button onClick={onHelp} style={iconBtnStyle} title={t('header.howToPlay')} aria-label="Help">?</button>
+        <button onClick={onLeaderboard} style={iconBtnStyle} title={t('header.leaderboard')} aria-label="Leaderboard">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
             <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
@@ -29,7 +35,7 @@ export default function Header({ puzzleNumber, onHelp, onStats, onLeaderboard, o
             <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
           </svg>
         </button>
-        <button onClick={onStats} style={iconBtnStyle} title="Statistics" aria-label="Statistics">
+        <button onClick={onStats} style={iconBtnStyle} title={t('header.statistics')} aria-label="Statistics">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <rect x="4" y="12" width="4" height="8" rx="1" />
             <rect x="10" y="6" width="4" height="14" rx="1" />
@@ -39,8 +45,8 @@ export default function Header({ puzzleNumber, onHelp, onStats, onLeaderboard, o
         <button
           onClick={onAuth}
           style={user ? userBtnStyle : iconBtnStyle}
-          title={user ? user.nickname : 'Sign in'}
-          aria-label={user ? user.nickname : 'Sign in'}
+          title={user ? user.nickname : t('header.signIn')}
+          aria-label={user ? user.nickname : t('header.signIn')}
         >
           {user ? user.nickname.charAt(0).toUpperCase() : (
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

@@ -3,6 +3,8 @@ module Api
     class GameResultsController < ApplicationController
       before_action :authenticate!
 
+      POINTS_MAP = { 1 => 10, 2 => 5, 3 => 4, 4 => 3, 5 => 2, 6 => 1 }.freeze
+
       def create
         date_str = result_params[:date].to_s
         solved = result_params[:solved]
@@ -65,6 +67,7 @@ module Api
           user.games_won += 1
           user.current_streak += 1
           user.max_streak = [user.max_streak, user.current_streak].max
+          user.total_points += POINTS_MAP.fetch(result.guesses_count, 0)
         else
           user.current_streak = 0
         end

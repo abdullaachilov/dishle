@@ -1,4 +1,8 @@
+import { useTranslation } from '../i18n'
+
 export default function UserModal({ user, onClose, onLogout }) {
+  const { t } = useTranslation()
+
   return (
     <div style={overlayStyle} onClick={onClose}>
       <div style={modalStyle} onClick={e => e.stopPropagation()}>
@@ -16,13 +20,13 @@ export default function UserModal({ user, onClose, onLogout }) {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginBottom: 20 }}>
-          <StatBox value={user.games_played} label="Played" />
-          <StatBox value={user.games_won} label="Won" />
-          <StatBox value={user.current_streak} label="Streak" />
-          <StatBox value={user.max_streak} label="Best" />
+          <StatBox value={user.games_played} label={t('user.played')} />
+          <StatBox value={user.games_won} label={t('user.won')} />
+          <StatBox value={user.current_streak} label={t('user.streak')} />
+          <StatBox value={user.max_streak} label={t('user.best')} />
         </div>
 
-        <button onClick={onLogout} style={logoutStyle}>Sign Out</button>
+        <button onClick={onLogout} style={logoutStyle}>{t('user.signOut')}</button>
       </div>
     </div>
   )

@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { searchDishes } from '../api'
+import { useTranslation } from '../i18n'
 
 export default function GuessInput({ onSubmit, disabled, error }) {
+  const { t } = useTranslation()
   const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
   const [showDropdown, setShowDropdown] = useState(false)
@@ -89,7 +91,7 @@ export default function GuessInput({ onSubmit, disabled, error }) {
             onChange={(e) => setQuery(e.target.value.slice(0, 100))}
             onKeyDown={handleKeyDown}
             onFocus={() => results.length > 0 && setShowDropdown(true)}
-            placeholder="Type a dish name..."
+            placeholder={t('input.placeholder')}
             disabled={disabled}
             autoComplete="off"
             style={{
@@ -117,7 +119,7 @@ export default function GuessInput({ onSubmit, disabled, error }) {
             letterSpacing: '0.05em',
           }}
         >
-          GO
+          {t('input.submit')}
         </button>
       </form>
 

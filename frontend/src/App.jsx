@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { fetchToday, submitGuess, fetchReveal, fetchMe, submitGameResult, apiLogout } from './api'
 import { getGameState, saveGameState, updateStats, getStats, getToken, removeToken } from './storage'
+import { useTranslation } from './i18n'
 import GameBoard from './components/GameBoard'
 import GuessInput from './components/GuessInput'
 import Header from './components/Header'
@@ -20,6 +21,7 @@ function getTodayStr() {
 }
 
 export default function App() {
+  const { t } = useTranslation()
   const [puzzle, setPuzzle] = useState(null)
   const [guesses, setGuesses] = useState([])
   const [solved, setSolved] = useState(false)
@@ -69,7 +71,7 @@ export default function App() {
           if (!hasPlayed) setShowHelp(true)
         }
       } catch {
-        setError('Could not load today\'s puzzle. Please try again.')
+        setError('error.loadPuzzle')
       } finally {
         setLoading(false)
       }
@@ -92,7 +94,7 @@ export default function App() {
       }
 
       if (!res.data.valid) {
-        setError('Dish not found. Try another!')
+        setError('error.dishNotFound')
         setSubmitting(false)
         return
       }
@@ -133,7 +135,7 @@ export default function App() {
         }
       }, 1500)
     } catch {
-      setError('Something went wrong. Please try again.')
+      setError('error.generic')
     } finally {
       setSubmitting(false)
     }
@@ -200,7 +202,7 @@ export default function App() {
 
         {error && !gameOver && (
           <p style={{ color: '#e74c3c', textAlign: 'center', fontSize: '0.875rem', marginTop: 8 }}>
-            {error}
+            {t(error) !== error ? t(error) : error}
           </p>
         )}
       </main>

@@ -1,44 +1,48 @@
+import { useTranslation } from '../i18n'
+
 export default function HelpModal({ onClose }) {
+  const { t } = useTranslation()
+
   return (
     <div style={overlayStyle} onClick={onClose}>
       <div style={modalStyle} onClick={e => e.stopPropagation()}>
         <button onClick={onClose} style={closeStyle}>&times;</button>
         <h2 style={{ textAlign: 'center', fontSize: '1.1rem', fontWeight: 700, marginBottom: 16 }}>
-          How to Play
+          {t('help.title')}
         </h2>
 
         <p style={pStyle}>
-          Guess today's dish in 6 tries. Each dish has 5 key ingredients in fixed category slots.
+          {t('help.description')}
         </p>
 
         <div style={{ display: 'flex', gap: 4, justifyContent: 'center', margin: '12px 0', fontSize: '0.7rem', fontWeight: 700, color: 'var(--gray)' }}>
-          <span style={labelStyle}>BASE</span>
-          <span style={labelStyle}>PROTEIN</span>
-          <span style={labelStyle}>STAR</span>
-          <span style={labelStyle}>FAT</span>
-          <span style={labelStyle}>HEAT</span>
+          <span style={labelStyle}>{t('slot.base')}</span>
+          <span style={labelStyle}>{t('slot.protein')}</span>
+          <span style={labelStyle}>{t('slot.star')}</span>
+          <span style={labelStyle}>{t('slot.fat')}</span>
+          <span style={labelStyle}>{t('slot.heat')}</span>
         </div>
 
         <h3 style={{ fontSize: '0.85rem', fontWeight: 600, marginTop: 16, marginBottom: 8 }}>
-          Color hints:
+          {t('help.colorHints')}
         </h3>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
-          <ColorExample color="#6aaa64" emoji="🟩" text="Correct ingredient in the correct slot" />
-          <ColorExample color="#c9b458" emoji="🟨" text="Ingredient is in the dish, but wrong slot" />
-          <ColorExample color="#787c7e" emoji="⬛" text="Ingredient is not in the dish" />
+          <ColorExample color="#6aaa64" emoji="🟩" text={t('help.correct')} />
+          <ColorExample color="#c9b458" emoji="🟨" text={t('help.present')} />
+          <ColorExample color="#787c7e" emoji="⬛" text={t('help.absent')} />
         </div>
 
         <h3 style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: 8 }}>
-          Example:
+          {t('help.example')}
         </h3>
 
         <div style={{ background: '#f8f8f8', borderRadius: 8, padding: 12, marginBottom: 16 }}>
           <p style={{ fontSize: '0.8rem', fontWeight: 600, marginBottom: 6 }}>
-            Answer: CARBONARA
+            {t('help.answer')}
           </p>
           <p style={{ fontSize: '0.75rem', color: '#555', marginBottom: 4 }}>
-            Guess: BOLOGNESE
+            {t('help.guess')}
           </p>
           <div style={{ display: 'flex', gap: 3 }}>
             <MiniTile text="Pasta" color="#6aaa64" />
@@ -48,15 +52,15 @@ export default function HelpModal({ onClose }) {
             <MiniTile text="Garlic" color="#787c7e" />
           </div>
           <p style={{ fontSize: '0.7rem', color: '#888', marginTop: 4 }}>
-            Pasta is correct (🟩), other ingredients aren't in Carbonara (⬛)
+            {t('help.exampleExplain')}
           </p>
         </div>
 
         <p style={{ ...pStyle, textAlign: 'center', fontSize: '0.8rem' }}>
-          A new puzzle every day at midnight UTC!
+          {t('help.newPuzzle')}
         </p>
 
-        <button onClick={onClose} style={playBtnStyle}>Play</button>
+        <button onClick={onClose} style={playBtnStyle}>{t('help.play')}</button>
       </div>
     </div>
   )

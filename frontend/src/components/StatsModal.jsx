@@ -1,4 +1,7 @@
+import { useTranslation } from '../i18n'
+
 export default function StatsModal({ stats, onClose }) {
+  const { t } = useTranslation()
   const maxGuesses = Math.max(...Object.values(stats.guessDistribution), 1)
   const winPct = stats.gamesPlayed > 0 ? Math.round((stats.gamesWon / stats.gamesPlayed) * 100) : 0
 
@@ -6,17 +9,17 @@ export default function StatsModal({ stats, onClose }) {
     <div style={overlayStyle} onClick={onClose}>
       <div style={modalStyle} onClick={e => e.stopPropagation()}>
         <button onClick={onClose} style={closeStyle}>&times;</button>
-        <h2 style={{ textAlign: 'center', fontSize: '1.1rem', fontWeight: 700, marginBottom: 20 }}>Statistics</h2>
+        <h2 style={{ textAlign: 'center', fontSize: '1.1rem', fontWeight: 700, marginBottom: 20 }}>{t('stats.title')}</h2>
 
         <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginBottom: 24 }}>
-          <StatBox value={stats.gamesPlayed} label="Played" />
-          <StatBox value={winPct} label="Win %" />
-          <StatBox value={stats.currentStreak} label="Streak" />
-          <StatBox value={stats.maxStreak} label="Max" />
+          <StatBox value={stats.gamesPlayed} label={t('stats.played')} />
+          <StatBox value={winPct} label={t('stats.winPct')} />
+          <StatBox value={stats.currentStreak} label={t('stats.streak')} />
+          <StatBox value={stats.maxStreak} label={t('stats.max')} />
         </div>
 
         <h3 style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: 12, textAlign: 'center' }}>
-          Guess Distribution
+          {t('stats.guessDistribution')}
         </h3>
 
         <div style={{ maxWidth: 280, margin: '0 auto' }}>

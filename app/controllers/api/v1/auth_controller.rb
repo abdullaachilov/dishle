@@ -87,7 +87,8 @@ module Api
           games_played: user.games_played,
           games_won: user.games_won,
           current_streak: user.current_streak,
-          max_streak: user.max_streak
+          max_streak: user.max_streak,
+          total_points: user.total_points
         }
       end
     end

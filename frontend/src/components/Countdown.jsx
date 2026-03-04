@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from '../i18n'
 
 function getTimeUntilMidnightUTC() {
   const now = new Date()
@@ -11,6 +12,7 @@ function getTimeUntilMidnightUTC() {
 }
 
 export default function Countdown() {
+  const { t } = useTranslation()
   const [time, setTime] = useState(getTimeUntilMidnightUTC())
 
   useEffect(() => {
@@ -24,7 +26,7 @@ export default function Countdown() {
 
   return (
     <div style={{ color: 'var(--gray)', fontSize: '0.85rem' }}>
-      <span>Next Dishle in </span>
+      <span>{t('countdown.nextIn')} </span>
       <span style={{ fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
         {pad(time.hours)}:{pad(time.minutes)}:{pad(time.seconds)}
       </span>
