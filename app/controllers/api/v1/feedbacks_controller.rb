@@ -18,6 +18,8 @@ module Api
           cookies[:dishle_session] = {
             value: session_id,
             httponly: true,
+            secure: Rails.env.production?,
+            same_site: :lax,
             expires: 1.year.from_now
           }
         end

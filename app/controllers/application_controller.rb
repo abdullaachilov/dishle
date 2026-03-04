@@ -1,5 +1,17 @@
 class ApplicationController < ActionController::API
+  before_action :set_security_headers
+
   private
+
+  def set_security_headers
+    response.set_header("X-Content-Type-Options", "nosniff")
+    response.set_header("X-Frame-Options", "DENY")
+    response.set_header("X-XSS-Protection", "0")
+    response.set_header("Referrer-Policy", "strict-origin-when-cross-origin")
+    response.set_header("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+    response.set_header("Content-Security-Policy", "default-src 'none'; frame-ancestors 'none'")
+    response.set_header("Strict-Transport-Security", "max-age=31536000; includeSubDomains") if request.ssl?
+  end
 
   def current_user
     return @current_user if defined?(@current_user)
