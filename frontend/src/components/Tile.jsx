@@ -7,7 +7,7 @@ const COLORS = {
   absent: '#787c7e',
 }
 
-export default function Tile({ value, result, animate, delay = 0, isHint = false }) {
+export default function Tile({ value, result, animate, delay = 0, isHint = false, isExtraHint = false }) {
   const { tIngredient } = useGameContent()
   const [flipped, setFlipped] = useState(!animate)
   const [showColor, setShowColor] = useState(!animate)
@@ -23,9 +23,9 @@ export default function Tile({ value, result, animate, delay = 0, isHint = false
   }, [animate, delay, value])
 
   const hasValue = Boolean(value)
-  const bgColor = isHint ? COLORS.correct : showColor && result ? COLORS[result] : hasValue ? 'var(--tile-bg)' : 'transparent'
-  const textColor = isHint ? '#fff' : showColor && result ? '#fff' : 'var(--text)'
-  const borderColor = isHint ? COLORS.correct : hasValue ? (showColor && result ? bgColor : 'var(--border)') : 'var(--light-gray)'
+  const bgColor = isHint ? COLORS.correct : isExtraHint ? COLORS.present : showColor && result ? COLORS[result] : hasValue ? 'var(--tile-bg)' : 'transparent'
+  const textColor = (isHint || isExtraHint) ? '#fff' : showColor && result ? '#fff' : 'var(--text)'
+  const borderColor = isHint ? COLORS.correct : isExtraHint ? COLORS.present : hasValue ? (showColor && result ? bgColor : 'var(--border)') : 'var(--light-gray)'
 
   return (
     <div

@@ -68,7 +68,7 @@ export default {
   'leaderboard.player': 'Jugador',
   'leaderboard.legend': 'W = Victorias · P = Jugadas · Max = Mejor racha',
   'leaderboard.pts': 'Pts',
-  'leaderboard.pointsInfo': 'Puntos: 1 intento = 10 · 2 = 5 · 3 = 4 · 4 = 3 · 5 = 2 · 6 = 1',
+  'leaderboard.pointsInfo': 'Puntos: 1 intento = 10 · 2 = 5 · 3 = 4 · 4 = 3 · 5 = 2 · 6 = 1 · Pistas extra: -2 cada una',
 
   'header.feedback': 'Opinión',
 
@@ -80,4 +80,16 @@ export default {
   'feedback.cooldown': 'Espera antes de enviar de nuevo',
 
   'hint.revealed': '{slot} es {value}',
+  'hint.request': 'Pista',
+  'hint.remaining': 'restantes',
+  'hint.cost': 'Cada pista extra cuesta -2 puntos',
+  'hint.maxReached': 'Sin pistas disponibles',
+
+  'streak.title': 'Racha',
+
+  'nearMiss.soClose': '¡Casi! ¡{count}/5 correctos!',
+
+  'result.funFact': 'Dato curioso',
+  'result.signUpPrompt': '¡Regístrate para guardar tu racha y unirte a la clasificación!',
+  'result.signUpBtn': 'Crear cuenta',
 }

@@ -68,7 +68,7 @@ export default {
   'leaderboard.player': 'Гравець',
   'leaderboard.legend': 'W = Перемоги · P = Ігри · Max = Найкраща серія',
   'leaderboard.pts': 'Очки',
-  'leaderboard.pointsInfo': 'Очки: 1 спроба = 10 · 2 = 5 · 3 = 4 · 4 = 3 · 5 = 2 · 6 = 1',
+  'leaderboard.pointsInfo': 'Очки: 1 спроба = 10 · 2 = 5 · 3 = 4 · 4 = 3 · 5 = 2 · 6 = 1 · Дод. підказки: -2 за кожну',
 
   'header.feedback': 'Відгук',
 
@@ -80,4 +80,16 @@ export default {
   'feedback.cooldown': 'Зачекайте перед повторним надсиланням',
 
   'hint.revealed': '{slot} — {value}',
+  'hint.request': 'Підказка',
+  'hint.remaining': 'залишилось',
+  'hint.cost': 'Кожна дод. підказка коштує -2 очки',
+  'hint.maxReached': 'Підказок не залишилось',
+
+  'streak.title': 'Серія',
+
+  'nearMiss.soClose': 'Майже! {count}/5 вірно!',
+
+  'result.funFact': 'Факт',
+  'result.signUpPrompt': 'Зареєструйтесь, щоб зберегти серію та потрапити до рейтингу!',
+  'result.signUpBtn': 'Створити акаунт',
 }

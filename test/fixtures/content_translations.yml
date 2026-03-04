@@ -1,0 +1,11 @@
+pasta_ru:
+  locale: ru
+  category: ingredient
+  key: Pasta
+  value: Паста
+
+tomato_ru:
+  locale: ru
+  category: ingredient
+  key: Tomato
+  value: Томат

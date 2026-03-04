@@ -70,11 +70,20 @@ export async function fetchMe() {
   return res.json()
 }
 
-export async function submitGameResult(date, solved, guessesCount) {
+export async function submitGameResult(date, solved, guessesCount, hintsUsed = 0) {
   const res = await fetch(`${BASE}/game_results`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...authHeaders() },
-    body: JSON.stringify({ date, solved, guesses_count: guessesCount })
+    body: JSON.stringify({ date, solved, guesses_count: guessesCount, hints_used: hintsUsed })
+  })
+  return res.json()
+}
+
+export async function requestHint(date, revealed) {
+  const res = await fetch(`${BASE}/hint`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ date, revealed })
   })
   return res.json()
 }

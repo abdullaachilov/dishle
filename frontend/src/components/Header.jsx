@@ -1,8 +1,10 @@
 import { useTranslation } from '../i18n'
+import { getStats } from '../storage'
 import LanguageSelector from './LanguageSelector'
 
 export default function Header({ puzzleNumber, onHelp, onStats, onLeaderboard, onFeedback, onAuth, user }) {
   const { t } = useTranslation()
+  const streakCount = user ? user.current_streak : getStats().currentStreak
 
   return (
     <header style={{
@@ -21,6 +23,16 @@ export default function Header({ puzzleNumber, onHelp, onStats, onLeaderboard, o
         {puzzleNumber && (
           <span style={{ fontSize: '0.8rem', color: 'var(--gray)', fontWeight: 600, marginRight: 2 }}>
             #{puzzleNumber}
+          </span>
+        )}
+        {streakCount > 0 && (
+          <span style={{
+            display: 'flex', alignItems: 'center', gap: 2,
+            fontSize: '0.75rem', fontWeight: 700, color: '#e67e22',
+            background: 'rgba(230, 126, 34, 0.1)',
+            borderRadius: 12, padding: '2px 8px',
+          }} title={t('streak.title')}>
+            {'\uD83D\uDD25'} {streakCount}
           </span>
         )}
         <LanguageSelector />

@@ -1,6 +1,8 @@
 module Api
   module V1
     class FeedbacksController < ApplicationController
+      include ActionController::Cookies
+
       def create
         body = feedback_params[:body]
 

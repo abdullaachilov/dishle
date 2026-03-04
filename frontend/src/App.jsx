@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { fetchToday, submitGuess, fetchReveal, fetchMe, submitGameResult, apiLogout } from './api'
+import { fetchToday, submitGuess, fetchReveal, fetchMe, submitGameResult, apiLogout, requestHint } from './api'
 import { getGameState, saveGameState, updateStats, getStats, getToken, removeToken } from './storage'
 import { useTranslation } from './i18n'
 import GameBoard from './components/GameBoard'
@@ -15,6 +15,7 @@ import FeedbackModal from './components/FeedbackModal'
 
 const SLOTS = ['base', 'protein', 'star', 'fat', 'heat']
 const MAX_GUESSES = 6
+const MAX_EXTRA_HINTS = 2
 
 function getTodayStr() {
   const now = new Date()
@@ -40,6 +41,8 @@ export default function App() {
   const [showFeedback, setShowFeedback] = useState(false)
   const [animatingRow, setAnimatingRow] = useState(-1)
   const [user, setUser] = useState(null)
+  const [hints, setHints] = useState([])
+  const [nearMiss, setNearMiss] = useState(0)
 
   const todayStr = getTodayStr()
 
@@ -63,12 +66,13 @@ export default function App() {
         if (saved && saved.currentDate === todayStr) {
           setGuesses(saved.guesses || [])
           setSolved(saved.solved || false)
+          setHints(saved.hints || [])
           setGameOver(saved.solved || (saved.guesses || []).length >= MAX_GUESSES)
           if (saved.solved || (saved.guesses || []).length >= MAX_GUESSES) {
             setShowResult(true)
           }
         } else {
-          saveGameState({ currentDate: todayStr, guesses: [], solved: false })
+          saveGameState({ currentDate: todayStr, guesses: [], solved: false, hints: [] })
           const hasPlayed = saved && saved.currentDate
           if (!hasPlayed) setShowHelp(true)
         }
@@ -110,28 +114,36 @@ export default function App() {
         }))
       }
 
+      const correctCount = guessData.ingredients.filter(i => i.result === 'correct').length
       const newGuesses = [...guesses, guessData]
       setAnimatingRow(guesses.length)
       setGuesses(newGuesses)
 
       const isSolved = res.data.solved
       const isGameOver = isSolved || newGuesses.length >= MAX_GUESSES
+      const currentHints = hints
 
       setTimeout(() => {
         setAnimatingRow(-1)
         setSolved(isSolved)
         setGameOver(isGameOver)
 
+        if (!isSolved && correctCount >= 4) {
+          setNearMiss(correctCount)
+          setTimeout(() => setNearMiss(0), 2500)
+        }
+
         saveGameState({
           currentDate: todayStr,
           guesses: newGuesses,
-          solved: isSolved
+          solved: isSolved,
+          hints: currentHints
         })
 
         if (isGameOver) {
           updateStats(isSolved, newGuesses.length)
           if (getToken()) {
-            submitGameResult(todayStr, isSolved, newGuesses.length).catch(() => {})
+            submitGameResult(todayStr, isSolved, newGuesses.length, currentHints.length).catch(() => {})
           }
           setTimeout(() => setShowResult(true), 400)
         }
@@ -141,7 +153,25 @@ export default function App() {
     } finally {
       setSubmitting(false)
     }
-  }, [guesses, solved, gameOver, submitting, todayStr])
+  }, [guesses, solved, gameOver, submitting, todayStr, hints])
+
+  const handleRequestHint = useCallback(async () => {
+    if (solved || gameOver || hints.length >= MAX_EXTRA_HINTS) return
+    const allRevealed = [puzzle.hint.slot, ...hints.map(h => h.slot)]
+    try {
+      const res = await requestHint(todayStr, allRevealed)
+      if (res.data?.slot) {
+        const newHints = [...hints, { slot: res.data.slot, value: res.data.value }]
+        setHints(newHints)
+        saveGameState({
+          currentDate: todayStr,
+          guesses,
+          solved,
+          hints: newHints
+        })
+      }
+    } catch {}
+  }, [puzzle, hints, solved, gameOver, todayStr, guesses])
 
   useEffect(() => {
     if (gameOver && !revealData) {
@@ -153,7 +183,7 @@ export default function App() {
   function handleAuth(userData) {
     setUser(userData)
     if (gameOver) {
-      submitGameResult(todayStr, solved, guesses.length).catch(() => {})
+      submitGameResult(todayStr, solved, guesses.length, hints.length).catch(() => {})
     }
   }
 
@@ -175,7 +205,7 @@ export default function App() {
   if (loading) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
-        <div style={{ fontSize: '2rem' }}>🍽️</div>
+        <div style={{ fontSize: '2rem' }}>{'\uD83C\uDF7D\uFE0F'}</div>
       </div>
     )
   }
@@ -193,14 +223,42 @@ export default function App() {
       />
 
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '0 16px' }}>
-        <GameBoard guesses={guesses} animatingRow={animatingRow} hint={puzzle?.hint} />
+        <GameBoard guesses={guesses} animatingRow={animatingRow} hint={puzzle?.hint} extraHints={hints} />
+
+        {nearMiss > 0 && (
+          <div style={{
+            textAlign: 'center', padding: '8px 16px', margin: '4px auto',
+            background: 'rgba(230, 126, 34, 0.12)', border: '1px solid rgba(230, 126, 34, 0.3)',
+            borderRadius: 8, maxWidth: 440, width: '100%',
+            animation: 'fadeInOut 2.5s ease forwards',
+          }}>
+            <span style={{ fontSize: '0.9rem', fontWeight: 700 }}>
+              {'\uD83D\uDD25'} {t('nearMiss.soClose', { count: nearMiss })}
+            </span>
+          </div>
+        )}
 
         {!gameOver && (
-          <GuessInput
-            onSubmit={handleGuess}
-            disabled={submitting || solved || gameOver}
-            error={error}
-          />
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+            {hints.length < MAX_EXTRA_HINTS && (
+              <button
+                onClick={handleRequestHint}
+                style={{
+                  background: 'none', border: '1px solid var(--yellow)',
+                  borderRadius: 8, padding: '6px 14px', fontSize: '0.78rem',
+                  fontWeight: 600, color: '#c9b458', marginTop: 4,
+                }}
+                title={t('hint.cost')}
+              >
+                {'\uD83D\uDCA1'} {t('hint.request')} ({MAX_EXTRA_HINTS - hints.length} {t('hint.remaining')})
+              </button>
+            )}
+            <GuessInput
+              onSubmit={handleGuess}
+              disabled={submitting || solved || gameOver}
+              error={error}
+            />
+          </div>
         )}
 
         {error && !gameOver && (
@@ -220,6 +278,9 @@ export default function App() {
           revealData={revealData}
           onClose={() => setShowResult(false)}
           onStats={() => { setShowResult(false); setShowStats(true) }}
+          user={user}
+          onAuth={() => { setShowResult(false); setShowAuth(true) }}
+          hintsUsed={hints.length}
         />
       )}
       {showAuth && <AuthModal onClose={() => setShowAuth(false)} onAuth={handleAuth} />}

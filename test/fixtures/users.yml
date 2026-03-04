@@ -1,0 +1,19 @@
+alice:
+  nickname: alice_test
+  password_digest: <%= BCrypt::Password.create("password123") %>
+  session_token: <%= SecureRandom.urlsafe_base64(32) %>
+  games_played: 5
+  games_won: 3
+  current_streak: 2
+  max_streak: 3
+  total_points: 20
+
+bob:
+  nickname: bob_player
+  password_digest: <%= BCrypt::Password.create("securepass") %>
+  session_token: <%= SecureRandom.urlsafe_base64(32) %>
+  games_played: 10
+  games_won: 8
+  current_streak: 5
+  max_streak: 5
+  total_points: 50

@@ -1,0 +1,9 @@
+today_puzzle:
+  dish: carbonara
+  puzzle_date: <%= Date.current.to_s %>
+  puzzle_number: 1
+
+yesterday_puzzle:
+  dish: bolognese
+  puzzle_date: <%= (Date.current - 1).to_s %>
+  puzzle_number: 2

@@ -1,0 +1,7 @@
+alice_yesterday:
+  user: alice
+  daily_puzzle: yesterday_puzzle
+  solved: true
+  guesses_count: 3
+  hints_used: 0
+  completed_at: <%= 1.day.ago.iso8601 %>

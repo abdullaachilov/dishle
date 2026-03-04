@@ -1,0 +1,6 @@
+recent_feedback:
+  body: "Great game!"
+  ip_address: "127.0.0.1"
+  session_id: "test_session_123"
+  user: alice
+  created_at: <%= 1.hour.ago.iso8601 %>

@@ -35,11 +35,13 @@ module Api
         end
 
         is_solved = solved == true || solved == "true"
+        hints = (result_params[:hints_used].to_i).clamp(0, 2)
         result = GameResult.new(
           user: current_user,
           daily_puzzle: puzzle,
           solved: is_solved,
           guesses_count: guesses_count.clamp(1, 6),
+          hints_used: hints,
           completed_at: Time.current
         )
 
@@ -58,7 +60,7 @@ module Api
       private
 
       def result_params
-        params.permit(:date, :solved, :guesses_count)
+        params.permit(:date, :solved, :guesses_count, :hints_used)
       end
 
       def update_user_stats!(user, result)
@@ -67,7 +69,9 @@ module Api
           user.games_won += 1
           user.current_streak += 1
           user.max_streak = [user.max_streak, user.current_streak].max
-          user.total_points += POINTS_MAP.fetch(result.guesses_count, 0)
+          base_points = POINTS_MAP.fetch(result.guesses_count, 0)
+          hint_penalty = result.hints_used * 2
+          user.total_points += [base_points - hint_penalty, 0].max
         else
           user.current_streak = 0
         end

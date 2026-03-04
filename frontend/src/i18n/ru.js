@@ -68,7 +68,7 @@ export default {
   'leaderboard.player': 'Игрок',
   'leaderboard.legend': 'W = Победы · P = Игры · Max = Лучшая серия',
   'leaderboard.pts': 'Очки',
-  'leaderboard.pointsInfo': 'Очки: 1 попытка = 10 · 2 = 5 · 3 = 4 · 4 = 3 · 5 = 2 · 6 = 1',
+  'leaderboard.pointsInfo': 'Очки: 1 попытка = 10 · 2 = 5 · 3 = 4 · 4 = 3 · 5 = 2 · 6 = 1 · Доп. подсказки: -2 за каждую',
 
   'header.feedback': 'Отзыв',
 
@@ -80,4 +80,16 @@ export default {
   'feedback.cooldown': 'Подождите перед повторной отправкой',
 
   'hint.revealed': '{slot} — {value}',
+  'hint.request': 'Подсказка',
+  'hint.remaining': 'осталось',
+  'hint.cost': 'Каждая доп. подсказка стоит -2 очка',
+  'hint.maxReached': 'Подсказок не осталось',
+
+  'streak.title': 'Серия',
+
+  'nearMiss.soClose': 'Почти! {count}/5 верно!',
+
+  'result.funFact': 'Факт',
+  'result.signUpPrompt': 'Зарегистрируйтесь, чтобы сохранить серию и попасть в рейтинг!',
+  'result.signUpBtn': 'Создать аккаунт',
 }

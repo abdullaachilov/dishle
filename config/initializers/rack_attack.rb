@@ -10,4 +10,8 @@ class Rack::Attack
   throttle("auth/ip", limit: 10, period: 60) do |req|
     req.ip if req.path.start_with?("/api/v1/auth/") && (req.post? || req.delete?)
   end
+
+  throttle("hints/ip", limit: 10, period: 60) do |req|
+    req.ip if req.path == "/api/v1/hint" && req.post?
+  end
 end

@@ -68,7 +68,7 @@ export default {
   'leaderboard.player': 'Spieler',
   'leaderboard.legend': 'W = Siege · P = Gespielt · Max = Beste Serie',
   'leaderboard.pts': 'Pkt',
-  'leaderboard.pointsInfo': 'Punkte: 1. Versuch = 10 · 2. = 5 · 3. = 4 · 4. = 3 · 5. = 2 · 6. = 1',
+  'leaderboard.pointsInfo': 'Punkte: 1. Versuch = 10 · 2. = 5 · 3. = 4 · 4. = 3 · 5. = 2 · 6. = 1 · Extra-Hinweise: -2 pro Stück',
 
   'header.feedback': 'Feedback',
 
@@ -80,4 +80,16 @@ export default {
   'feedback.cooldown': 'Bitte warte vor dem erneuten Senden',
 
   'hint.revealed': '{slot} ist {value}',
+  'hint.request': 'Hinweis',
+  'hint.remaining': 'übrig',
+  'hint.cost': 'Jeder Extra-Hinweis kostet -2 Punkte',
+  'hint.maxReached': 'Keine Hinweise mehr',
+
+  'streak.title': 'Serie',
+
+  'nearMiss.soClose': 'So nah! {count}/5 richtig!',
+
+  'result.funFact': 'Fun Fact',
+  'result.signUpPrompt': 'Registriere dich, um deine Serie zu speichern und in die Bestenliste zu kommen!',
+  'result.signUpBtn': 'Konto erstellen',
 }

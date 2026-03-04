@@ -79,7 +79,7 @@ export default {
   'leaderboard.player': 'Player',
   'leaderboard.legend': 'W = Wins · P = Played · Max = Best Streak',
   'leaderboard.pts': 'Pts',
-  'leaderboard.pointsInfo': 'Points: 1st try = 10 · 2nd = 5 · 3rd = 4 · 4th = 3 · 5th = 2 · 6th = 1',
+  'leaderboard.pointsInfo': 'Points: 1st try = 10 · 2nd = 5 · 3rd = 4 · 4th = 3 · 5th = 2 · 6th = 1 · Extra hints: -2 each',
 
   // Header - feedback
   'header.feedback': 'Feedback',
@@ -94,4 +94,19 @@ export default {
 
   // Hint
   'hint.revealed': '{slot} is {value}',
+  'hint.request': 'Hint',
+  'hint.remaining': 'left',
+  'hint.cost': 'Each extra hint costs -2 points',
+  'hint.maxReached': 'No hints left',
+
+  // Streak
+  'streak.title': 'Streak',
+
+  // Near miss
+  'nearMiss.soClose': 'So close! {count}/5 correct!',
+
+  // Result extras
+  'result.funFact': 'Fun Fact',
+  'result.signUpPrompt': 'Sign up to save your streak and join the leaderboard!',
+  'result.signUpBtn': 'Create Account',
 }

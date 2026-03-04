@@ -5,7 +5,7 @@ import { useGameContent } from '../i18n/content'
 const SLOTS = ['base', 'protein', 'star', 'fat', 'heat']
 const MAX_GUESSES = 6
 
-export default function GameBoard({ guesses, animatingRow, hint }) {
+export default function GameBoard({ guesses, animatingRow, hint, extraHints = [] }) {
   const { t } = useTranslation()
   const { tIngredient } = useGameContent()
   const rows = []
@@ -39,6 +39,32 @@ export default function GameBoard({ guesses, animatingRow, hint }) {
           </span>
         </div>
       )}
+
+      {/* Extra hint banners */}
+      {extraHints.map((h, i) => (
+        <div key={`extra-hint-${i}`} style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          background: 'rgba(201, 180, 88, 0.12)',
+          border: '1px solid rgba(201, 180, 88, 0.4)',
+          borderRadius: 8,
+          padding: '6px 14px',
+          marginBottom: 4,
+          maxWidth: 440,
+          width: '100%',
+          justifyContent: 'center',
+        }}>
+          <span style={{ fontSize: '0.85rem' }}>{'\uD83D\uDCA1'}</span>
+          <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text)' }}>
+            {t('hint.revealed', {
+              slot: t(`slot.${h.slot}`),
+              value: tIngredient(h.value) || h.value
+            })}
+            <span style={{ color: 'var(--gray)', fontSize: '0.7rem', marginLeft: 4 }}>(-2 pts)</span>
+          </span>
+        </div>
+      ))}
 
       {/* Category labels */}
       <div style={{
@@ -79,14 +105,17 @@ export default function GameBoard({ guesses, animatingRow, hint }) {
           {SLOTS.map((slot, colIdx) => {
             const ingredient = guess?.ingredients?.find(i => i.slot === slot)
             const isHintTile = !guess && rowIdx === 0 && guesses.length === 0 && hint?.slot === slot
+            const isExtraHint = !guess && rowIdx === 0 && guesses.length === 0 && extraHints.some(h => h.slot === slot)
+            const extraHintData = isExtraHint ? extraHints.find(h => h.slot === slot) : null
             return (
               <Tile
                 key={`${rowIdx}-${colIdx}`}
-                value={isHintTile ? hint.value : ingredient?.value}
+                value={isHintTile ? hint.value : isExtraHint ? extraHintData.value : ingredient?.value}
                 result={ingredient?.result}
                 animate={animatingRow === rowIdx}
                 delay={colIdx * 250}
                 isHint={isHintTile}
+                isExtraHint={isExtraHint}
               />
             )
           })}

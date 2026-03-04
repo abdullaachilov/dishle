@@ -68,7 +68,7 @@ export default {
   'leaderboard.player': 'Gracz',
   'leaderboard.legend': 'W = Wygrane · P = Gry · Max = Najlepsza seria',
   'leaderboard.pts': 'Pkt',
-  'leaderboard.pointsInfo': 'Punkty: 1 próba = 10 · 2 = 5 · 3 = 4 · 4 = 3 · 5 = 2 · 6 = 1',
+  'leaderboard.pointsInfo': 'Punkty: 1 próba = 10 · 2 = 5 · 3 = 4 · 4 = 3 · 5 = 2 · 6 = 1 · Dod. wskazówki: -2 za każdą',
 
   'header.feedback': 'Opinia',
 
@@ -80,4 +80,16 @@ export default {
   'feedback.cooldown': 'Poczekaj przed ponownym wysłaniem',
 
   'hint.revealed': '{slot} to {value}',
+  'hint.request': 'Wskazówka',
+  'hint.remaining': 'pozostało',
+  'hint.cost': 'Każda dod. wskazówka kosztuje -2 punkty',
+  'hint.maxReached': 'Brak wskazówek',
+
+  'streak.title': 'Seria',
+
+  'nearMiss.soClose': 'Blisko! {count}/5 poprawnie!',
+
+  'result.funFact': 'Ciekawostka',
+  'result.signUpPrompt': 'Zarejestruj się, aby zapisać serię i dołączyć do rankingu!',
+  'result.signUpBtn': 'Utwórz konto',
 }

@@ -1,0 +1,41 @@
+carbonara:
+  name: Carbonara
+  slug: carbonara
+  cuisine: Italian
+  base: Pasta
+  protein: Egg
+  star: Pecorino
+  fat: Guanciale
+  heat: Black Pepper
+  difficulty: easy
+  description: "Roman pasta with egg, pecorino, cured pork cheek, and black pepper."
+  fun_fact: "Traditional carbonara uses no cream."
+  used_as_daily: false
+
+bolognese:
+  name: Bolognese
+  slug: bolognese
+  cuisine: Italian
+  base: Pasta
+  protein: Beef
+  star: Tomato
+  fat: Olive Oil
+  heat: Garlic
+  difficulty: easy
+  description: "Slow-cooked meat sauce from Bologna."
+  fun_fact: "Takes at least 4 hours to cook properly."
+  used_as_daily: false
+
+pad_thai:
+  name: Pad Thai
+  slug: pad-thai
+  cuisine: Thai
+  base: Noodles
+  protein: Shrimp
+  star: Tamarind
+  fat: Peanuts
+  heat: Chili Flakes
+  difficulty: easy
+  description: "Thailand's iconic stir-fried rice noodle dish."
+  fun_fact: "Promoted as a national dish in the 1930s."
+  used_as_daily: false

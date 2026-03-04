@@ -120,7 +120,9 @@ module Api
             dish_name: dish.name,
             cuisine: dish.cuisine,
             ingredients: dish.ingredients,
-            description: dish.description
+            description: dish.description,
+            fun_fact: dish.fun_fact,
+            image_url: dish.image_url
           },
           error: nil,
           meta: {}

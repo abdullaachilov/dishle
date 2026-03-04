@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get "today", to: "puzzles#today"
       post "guess", to: "puzzles#guess"
       get "reveal", to: "puzzles#reveal"
+      post "hint", to: "hints#create"
       get "dishes/search", to: "dishes#search"
       get "translations", to: "translations#index"
 
