@@ -69,4 +69,13 @@ export default {
   'leaderboard.legend': 'W = Wygrane · P = Gry · Max = Najlepsza seria',
   'leaderboard.pts': 'Pkt',
   'leaderboard.pointsInfo': 'Punkty: 1 próba = 10 · 2 = 5 · 3 = 4 · 4 = 3 · 5 = 2 · 6 = 1',
+
+  'header.feedback': 'Opinia',
+
+  'feedback.title': 'Wyślij opinię',
+  'feedback.placeholder': 'Powiedz nam, co myślisz...',
+  'feedback.submit': 'Wyślij',
+  'feedback.success': 'Dziękujemy za opinię!',
+  'feedback.error': 'Nie udało się wysłać opinii. Spróbuj ponownie.',
+  'feedback.cooldown': 'Poczekaj przed ponownym wysłaniem',
 }

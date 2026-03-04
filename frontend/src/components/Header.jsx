@@ -1,7 +1,7 @@
 import { useTranslation } from '../i18n'
 import LanguageSelector from './LanguageSelector'
 
-export default function Header({ puzzleNumber, onHelp, onStats, onLeaderboard, onAuth, user }) {
+export default function Header({ puzzleNumber, onHelp, onStats, onLeaderboard, onFeedback, onAuth, user }) {
   const { t } = useTranslation()
 
   return (
@@ -25,6 +25,11 @@ export default function Header({ puzzleNumber, onHelp, onStats, onLeaderboard, o
         )}
         <LanguageSelector />
         <button onClick={onHelp} style={iconBtnStyle} title={t('header.howToPlay')} aria-label="Help">?</button>
+        <button onClick={onFeedback} style={iconBtnStyle} title={t('header.feedback')} aria-label="Feedback">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+        </button>
         <button onClick={onLeaderboard} style={iconBtnStyle} title={t('header.leaderboard')} aria-label="Leaderboard">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />

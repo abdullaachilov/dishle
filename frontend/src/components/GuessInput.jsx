@@ -1,38 +1,33 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { searchDishes } from '../api'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useTranslation } from '../i18n'
+import { useGameContent } from '../i18n/content'
 
 export default function GuessInput({ onSubmit, disabled, error }) {
   const { t } = useTranslation()
+  const { getSearchableDishes } = useGameContent()
   const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
   const [showDropdown, setShowDropdown] = useState(false)
   const [selectedIdx, setSelectedIdx] = useState(-1)
   const inputRef = useRef(null)
-  const debounceRef = useRef(null)
   const dropdownRef = useRef(null)
 
-  const doSearch = useCallback(async (q) => {
-    if (q.length < 2) {
+  const dishes = useMemo(() => getSearchableDishes(), [getSearchableDishes])
+
+  useEffect(() => {
+    if (query.length < 2) {
       setResults([])
       setShowDropdown(false)
       return
     }
-    try {
-      const data = await searchDishes(q)
-      setResults(data)
-      setShowDropdown(data.length > 0)
-      setSelectedIdx(-1)
-    } catch {
-      setResults([])
-    }
-  }, [])
-
-  useEffect(() => {
-    if (debounceRef.current) clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => doSearch(query), 200)
-    return () => clearTimeout(debounceRef.current)
-  }, [query, doSearch])
+    const q = query.toLowerCase()
+    const matched = dishes.filter(d =>
+      d.name.toLowerCase().includes(q) || d.en.toLowerCase().includes(q)
+    ).slice(0, 8)
+    setResults(matched)
+    setShowDropdown(matched.length > 0)
+    setSelectedIdx(-1)
+  }, [query, dishes])
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -49,7 +44,7 @@ export default function GuessInput({ onSubmit, disabled, error }) {
     setQuery('')
     setResults([])
     setShowDropdown(false)
-    onSubmit(dish.name)
+    onSubmit(dish.en)
   }
 
   function handleSubmit(e) {
@@ -142,7 +137,7 @@ export default function GuessInput({ onSubmit, disabled, error }) {
         >
           {results.map((dish, idx) => (
             <button
-              key={dish.name}
+              key={dish.en}
               onClick={() => handleSelect(dish)}
               style={{
                 width: '100%',

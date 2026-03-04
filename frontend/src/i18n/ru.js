@@ -69,4 +69,13 @@ export default {
   'leaderboard.legend': 'W = Победы · P = Игры · Max = Лучшая серия',
   'leaderboard.pts': 'Очки',
   'leaderboard.pointsInfo': 'Очки: 1 попытка = 10 · 2 = 5 · 3 = 4 · 4 = 3 · 5 = 2 · 6 = 1',
+
+  'header.feedback': 'Отзыв',
+
+  'feedback.title': 'Оставить отзыв',
+  'feedback.placeholder': 'Расскажите, что вы думаете...',
+  'feedback.submit': 'Отправить',
+  'feedback.success': 'Спасибо за ваш отзыв!',
+  'feedback.error': 'Не удалось отправить отзыв. Попробуйте ещё раз.',
+  'feedback.cooldown': 'Подождите перед повторной отправкой',
 }

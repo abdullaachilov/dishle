@@ -69,4 +69,13 @@ export default {
   'leaderboard.legend': 'W = Siege · P = Gespielt · Max = Beste Serie',
   'leaderboard.pts': 'Pkt',
   'leaderboard.pointsInfo': 'Punkte: 1. Versuch = 10 · 2. = 5 · 3. = 4 · 4. = 3 · 5. = 2 · 6. = 1',
+
+  'header.feedback': 'Feedback',
+
+  'feedback.title': 'Feedback senden',
+  'feedback.placeholder': 'Sag uns, was du denkst...',
+  'feedback.submit': 'Senden',
+  'feedback.success': 'Danke für dein Feedback!',
+  'feedback.error': 'Feedback konnte nicht gesendet werden. Bitte erneut versuchen.',
+  'feedback.cooldown': 'Bitte warte vor dem erneuten Senden',
 }

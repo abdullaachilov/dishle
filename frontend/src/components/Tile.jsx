@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useGameContent } from '../i18n/content'
 
 const COLORS = {
   correct: '#6aaa64',
@@ -7,6 +8,7 @@ const COLORS = {
 }
 
 export default function Tile({ value, result, animate, delay = 0 }) {
+  const { tIngredient } = useGameContent()
   const [flipped, setFlipped] = useState(!animate)
   const [showColor, setShowColor] = useState(!animate)
 
@@ -46,9 +48,9 @@ export default function Tile({ value, result, animate, delay = 0 }) {
         overflow: 'hidden',
         wordBreak: 'break-word',
       }}
-      title={value || ''}
+      title={tIngredient(value) || ''}
     >
-      {value || ''}
+      {tIngredient(value) || ''}
     </div>
   )
 }

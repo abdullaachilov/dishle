@@ -80,4 +80,15 @@ export default {
   'leaderboard.legend': 'W = Wins · P = Played · Max = Best Streak',
   'leaderboard.pts': 'Pts',
   'leaderboard.pointsInfo': 'Points: 1st try = 10 · 2nd = 5 · 3rd = 4 · 4th = 3 · 5th = 2 · 6th = 1',
+
+  // Header - feedback
+  'header.feedback': 'Feedback',
+
+  // Feedback modal
+  'feedback.title': 'Send Feedback',
+  'feedback.placeholder': 'Tell us what you think...',
+  'feedback.submit': 'Send',
+  'feedback.success': 'Thanks for your feedback!',
+  'feedback.error': 'Could not send feedback. Try again.',
+  'feedback.cooldown': 'Please wait before sending again',
 }

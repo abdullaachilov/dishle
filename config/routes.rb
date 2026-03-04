@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post "guess", to: "puzzles#guess"
       get "reveal", to: "puzzles#reveal"
       get "dishes/search", to: "dishes#search"
+      get "translations", to: "translations#index"
 
       post "auth/register", to: "auth#register"
       post "auth/login", to: "auth#login"
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
 
       post "game_results", to: "game_results#create"
       get "leaderboard", to: "leaderboard#index"
+
+      post "feedback", to: "feedbacks#create"
     end
   end
 

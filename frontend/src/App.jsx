@@ -11,6 +11,7 @@ import HelpModal from './components/HelpModal'
 import AuthModal from './components/AuthModal'
 import UserModal from './components/UserModal'
 import LeaderboardModal from './components/LeaderboardModal'
+import FeedbackModal from './components/FeedbackModal'
 
 const SLOTS = ['base', 'protein', 'star', 'fat', 'heat']
 const MAX_GUESSES = 6
@@ -36,6 +37,7 @@ export default function App() {
   const [showAuth, setShowAuth] = useState(false)
   const [showUser, setShowUser] = useState(false)
   const [showLeaderboard, setShowLeaderboard] = useState(false)
+  const [showFeedback, setShowFeedback] = useState(false)
   const [animatingRow, setAnimatingRow] = useState(-1)
   const [user, setUser] = useState(null)
 
@@ -185,6 +187,7 @@ export default function App() {
         onHelp={() => setShowHelp(true)}
         onStats={() => setShowStats(true)}
         onLeaderboard={() => setShowLeaderboard(true)}
+        onFeedback={() => setShowFeedback(true)}
         onAuth={handleAuthClick}
         user={user}
       />
@@ -222,6 +225,7 @@ export default function App() {
       {showAuth && <AuthModal onClose={() => setShowAuth(false)} onAuth={handleAuth} />}
       {showUser && <UserModal user={user} onClose={() => setShowUser(false)} onLogout={handleLogout} />}
       {showLeaderboard && <LeaderboardModal onClose={() => setShowLeaderboard(false)} currentUser={user} />}
+      {showFeedback && <FeedbackModal onClose={() => setShowFeedback(false)} />}
     </>
   )
 }

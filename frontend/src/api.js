@@ -83,3 +83,19 @@ export async function fetchLeaderboard() {
   const res = await fetch(`${BASE}/leaderboard`)
   return res.json()
 }
+
+export async function submitFeedback(body) {
+  const res = await fetch(`${BASE}/feedback`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify({ body })
+  })
+  return res.json()
+}
+
+export async function fetchTranslations(locale) {
+  const res = await fetch(`${BASE}/translations?locale=${encodeURIComponent(locale)}`)
+  const json = await res.json()
+  if (json.error) throw new Error(json.error)
+  return json.data
+}

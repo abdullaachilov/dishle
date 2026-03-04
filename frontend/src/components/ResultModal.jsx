@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Countdown from './Countdown'
 import { useTranslation } from '../i18n'
+import { useGameContent } from '../i18n/content'
 
 const EMOJI_MAP = { correct: '🟩', present: '🟨', absent: '⬛' }
 
@@ -14,6 +15,7 @@ function buildShareText(puzzleNumber, guesses, solved) {
 
 export default function ResultModal({ solved, guesses, puzzleNumber, revealData, onClose, onStats }) {
   const { t } = useTranslation()
+  const { tDishName, tCuisine } = useGameContent()
   const [copied, setCopied] = useState(false)
 
   const shareText = buildShareText(puzzleNumber, guesses, solved)
@@ -44,11 +46,11 @@ export default function ResultModal({ solved, guesses, puzzleNumber, revealData,
         {revealData && (
           <div style={{ textAlign: 'center', marginBottom: 16 }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 800, textTransform: 'uppercase', marginBottom: 4 }}>
-              {revealData.dish_name}
+              {tDishName(revealData.dish_name)}
             </h3>
             {revealData.cuisine && (
               <p style={{ fontSize: '0.75rem', color: 'var(--gray)', marginBottom: 6 }}>
-                {revealData.cuisine}
+                {tCuisine(revealData.cuisine)}
               </p>
             )}
             <p style={{ fontSize: '0.85rem', color: '#555', lineHeight: 1.4 }}>

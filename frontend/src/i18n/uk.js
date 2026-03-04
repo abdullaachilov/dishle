@@ -69,4 +69,13 @@ export default {
   'leaderboard.legend': 'W = Перемоги · P = Ігри · Max = Найкраща серія',
   'leaderboard.pts': 'Очки',
   'leaderboard.pointsInfo': 'Очки: 1 спроба = 10 · 2 = 5 · 3 = 4 · 4 = 3 · 5 = 2 · 6 = 1',
+
+  'header.feedback': 'Відгук',
+
+  'feedback.title': 'Залишити відгук',
+  'feedback.placeholder': 'Розкажіть, що ви думаєте...',
+  'feedback.submit': 'Надіслати',
+  'feedback.success': 'Дякуємо за ваш відгук!',
+  'feedback.error': 'Не вдалося надіслати відгук. Спробуйте ще раз.',
+  'feedback.cooldown': 'Зачекайте перед повторним надсиланням',
 }

@@ -69,4 +69,13 @@ export default {
   'leaderboard.legend': 'W = Victorias · P = Jugadas · Max = Mejor racha',
   'leaderboard.pts': 'Pts',
   'leaderboard.pointsInfo': 'Puntos: 1 intento = 10 · 2 = 5 · 3 = 4 · 4 = 3 · 5 = 2 · 6 = 1',
+
+  'header.feedback': 'Opinión',
+
+  'feedback.title': 'Enviar opinión',
+  'feedback.placeholder': 'Cuéntanos qué piensas...',
+  'feedback.submit': 'Enviar',
+  'feedback.success': '¡Gracias por tu opinión!',
+  'feedback.error': 'No se pudo enviar la opinión. Inténtalo de nuevo.',
+  'feedback.cooldown': 'Espera antes de enviar de nuevo',
 }
