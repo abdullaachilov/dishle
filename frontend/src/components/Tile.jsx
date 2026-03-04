@@ -23,9 +23,9 @@ export default function Tile({ value, result, animate, delay = 0, isHint = false
   }, [animate, delay, value])
 
   const hasValue = Boolean(value)
-  const bgColor = isHint ? '#e0e0e0' : showColor && result ? COLORS[result] : hasValue ? 'var(--tile-bg)' : 'transparent'
-  const textColor = isHint ? '#555' : showColor && result ? '#fff' : 'var(--text)'
-  const borderColor = isHint ? '#ccc' : hasValue ? (showColor && result ? bgColor : 'var(--border)') : 'var(--light-gray)'
+  const bgColor = isHint ? COLORS.correct : showColor && result ? COLORS[result] : hasValue ? 'var(--tile-bg)' : 'transparent'
+  const textColor = isHint ? '#fff' : showColor && result ? '#fff' : 'var(--text)'
+  const borderColor = isHint ? COLORS.correct : hasValue ? (showColor && result ? bgColor : 'var(--border)') : 'var(--light-gray)'
 
   return (
     <div
